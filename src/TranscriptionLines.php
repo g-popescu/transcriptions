@@ -2,12 +2,13 @@
 
 namespace Laracasts\Transcriptions;
 
+use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Traversable;
 
-class TranscriptionLines implements Countable, IteratorAggregate
+class TranscriptionLines implements Countable, IteratorAggregate, ArrayAccess
 {
     public function __construct(protected array $lines)
     {
@@ -37,5 +38,31 @@ class TranscriptionLines implements Countable, IteratorAggregate
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->lines);
+    }
+
+    public function offsetExists(mixed $key): bool
+    {
+        return isset($this->lines[$key]);
+    }
+
+    public function offsetGet(mixed $key): mixed
+    {
+        return $this->lines[$key] ?? null;
+    }
+
+    public function offsetSet(mixed $key, mixed $value): void
+    {
+        if ($key === NULL) {
+            $this->lines[] = $value;
+        } else if (!$this->offsetExists($key)) {
+            $this->lines[$key] = $value;
+        }
+    }
+
+    public function offsetUnset(mixed $key): void
+    {
+        if ($this->offsetExists($key)) {
+            unset($this->lines[$key]);
+        }
     }
 }
