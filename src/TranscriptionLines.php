@@ -6,9 +6,10 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use JsonSerializable;
 use Traversable;
 
-class TranscriptionLines implements Countable, IteratorAggregate, ArrayAccess
+class TranscriptionLines implements Countable, IteratorAggregate, ArrayAccess, JsonSerializable
 {
     public function __construct(protected array $lines)
     {
@@ -64,5 +65,10 @@ class TranscriptionLines implements Countable, IteratorAggregate, ArrayAccess
         if ($this->offsetExists($key)) {
             unset($this->lines[$key]);
         }
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return json_encode($this->lines);
     }
 }
