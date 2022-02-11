@@ -5,7 +5,6 @@ namespace Laracasts\Transcriptions;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use PhpParser\Node\Expr\FuncCall;
 use Traversable;
 
 class TranscriptionLines implements Countable, IteratorAggregate
