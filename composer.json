@@ -1,5 +1,5 @@
 {
-    "name": "laracasts/transcriptions",
+    "name": "gp-laracasts/transcriptions",
     "description": "Loader and parser for VTT files",
     "autoload": {
         "psr-4": {
